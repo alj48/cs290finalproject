@@ -76,6 +76,15 @@ public class Section {
         return ret;
     }
 
+    public void printSection(){
+        for (int i = 0; i < size; i++){
+            for (int j = 0; j < size; j++){
+                System.out.print(seatsStatus[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
 
 
 }
