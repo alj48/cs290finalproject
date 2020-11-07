@@ -44,35 +44,42 @@ public class Stadium {
 
     //The following function puts the customer requests into a 2d array so DA algorithm can be implemented with it.
     public int [][] getCustomerRequests(){
-        int [][] ret  = new int[numSecs][allRequests.size()];
+        int [][] ret  = new int[allRequests.size()][numSecs];
         for (Request r:allRequests){
             for (int i = 0; i < numSecs; i++){
-                ret[i][r.groupNum]=r.requestedSections.get(i)[0];
+                ret[r.groupNum][i]=r.requestedSections.get(i)[0];
             }
         }
         return ret;
     }
 
+
+
     public int[][] getSectionRequests(){
 
-        int [][] ret = new int[allRequests.size()][numSecs];
+        int [][] ret = new int[numSecs][allRequests.size()];
 
-        ArrayList<Integer> tmpList = new ArrayList<>();
+        Set<Integer> tmpList = new HashSet<>();
+        ArrayList<Integer> aslist = new ArrayList<>();
         HashMap<Integer,Integer> sortMap = new HashMap<>();
         for (int i = 0; i < numSecs; i++){
+            aslist.clear();
             tmpList.clear();
             sortMap.clear();
             for (Request r:allRequests){
                 for (int [] p:r.requestedSections.values()){
-                    if (p[0]==i) sortMap.put(p[1],r.groupNum);
+                    if (p[0]==i){
+                        sortMap.put(p[1],r.groupNum);
+                        aslist.add(p[1]);
+                    }
                 }
             }
             //Below I am sorting the different values into an array list, and the values will be
             tmpList = sortMap.keySet();
-            Collections.sort(tmpList);
+            Collections.sort(aslist,Collections.reverseOrder());
             int ctr = 0;
             for (int j = 0; j < allRequests.size(); j++){
-                ret[i][j]=sortMap.get(tmpList.get(ctr));
+                ret[i][j]=sortMap.get(aslist.get(ctr));
                 ctr++;
             }
         }
@@ -106,7 +113,7 @@ public class Stadium {
         int round = 0;
         while (numMatched < allRequests.size()){
             for (int i = 0; i < allRequests.size(); i++){
-                test[customerRequests[i][round]].add(allRequests.get(i));
+                test[customerRequests[i][round]].add(allRequests.get(i).groupNum);
             }
             for (int section = 0; section < numSecs; section++){
                 for (int j = 0; j < allRequests.size(); j++){

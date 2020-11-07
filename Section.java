@@ -54,8 +54,21 @@ public class Section {
         }
         return true;
     }
+
     public boolean canFit(int groupSize){
         return (nextSpot(groupSize)[0]==-1);
+    }
+
+    public void place(int groupSize, int thegroupNum){
+        int [] blah = nextSpot(groupSize);
+        if (blah[0]==-1)return;
+        else{
+            for (int k = 0; k < groupSize; k++){
+                seatsStatus[blah[0]][blah[1]]=OCCUPIED;
+                groupNum[blah[0]][blah[1]]=thegroupNum;
+            }
+
+        }
     }
 
     public int[] nextSpot(int groupSize){

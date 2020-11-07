@@ -8,7 +8,7 @@ public class Seat {
     final int SEAT_TAKEN = 1;
     final int NOT_A_SEAT = 2;
 
-    //Seat location
+    //Seat location (within its section)
     int x;
     int y;
 
