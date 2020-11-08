@@ -85,7 +85,12 @@ public class Stadium {
         }
         return ret;
     }
-
+    public boolean allSectionsFull(){
+        for (Section section:allSections){
+            if (!section.isFull())return false;
+        }
+        return true;
+    }
 
     //This function gives the seating, this performs DA algorithm. YET TO FINISH.
     public void giveSeating(){
@@ -94,12 +99,13 @@ public class Stadium {
         //Get capacities - this will be based on, for each individual request, whether or not there is space
 
 
-        int numGiven = 0;
-        while (numGiven < allSections.length){
-            for (int i = 0; i < allSections.length; i++){
+//        int numGiven = 0;
+//        while (numGiven < allSections.length || ){
+//            for (int i = 0; i < allSections.length; i++){
+//
+//            }
+//        }
 
-            }
-        }
         //Get preferences in order
         int [][] customerRequests = getCustomerRequests();
         int [][] sectionRequests = getSectionRequests();
@@ -111,7 +117,7 @@ public class Stadium {
         ArrayList<Integer> [] test = new ArrayList[numSecs];
         int numMatched = 0;
         int round = 0;
-        while (numMatched < allRequests.size()){
+        while (numMatched < allRequests.size() && !allSectionsFull()){
             for (int i = 0; i < allRequests.size(); i++){
                 test[customerRequests[i][round]].add(allRequests.get(i).groupNum);
             }
