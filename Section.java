@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.HashMap;
+
 public class Section {
 //DECLARE VARIABLES
 
@@ -40,7 +42,13 @@ public class Section {
     //This function can be modified for improvement by making one foot NOT equal to 1 seat apart
     //Like how it would be in a real stadium
     public boolean is6Feet(int seatAx, int seatAy, int seatBx, int seatBy){
-        return (Math.pow(Math.abs(seatAx-seatBx),2)+Math.pow(seatAy-seatBy,2)>=36);
+        int xdiff = Math.abs(seatAx-seatBx);
+        double xscaled = xdiff*(26/12);
+        double xsquared = Math.pow(xscaled,2);
+        int ydiff = Math.abs(seatAy-seatBy);
+        double yscaled = ydiff*(16/12);
+        double ysquared = Math.pow(yscaled,2);
+        return (xsquared+ysquared>=36);
     }
 
 
@@ -68,20 +76,18 @@ public class Section {
     }
 
     public boolean canFit(int groupSize){
-        return (nextSpot(groupSize)[0]==-1);
+        return (nextSpot(groupSize)[0]!=-1);
     }
 
-    public void place(int groupSize){
+    public void place(int groupSize, int gpNum){
         int [] blah = nextSpot(groupSize);
         if (blah[0]==-1) {
-            System.out.println("CANNOT PLACE HERE");
             return;
         }
         for (int i = 0; i < groupSize; i++){
             seatsStatus[blah[0]][blah[1]-i] = OCCUPIED;
-            groupNum[blah[0]][blah[1]-i] = nextGroup;
+            groupNum[blah[0]][blah[1]-i] = gpNum;
         }
-        nextGroup++;
     }
 
     public int[] nextSpot(int gpSize){
@@ -103,33 +109,24 @@ public class Section {
                 }
             }
         }
-//        int [] ret = new int[2];
-//
-//        boolean works = false;
-//        for (int i = 0; i < size; i++){
-//            for (int j = 0; j < size-gpSize; j++){
-//                works = true;
-//                for (int k = 0; k < gpSize; k++){
-//                    if (!isSafe(i,j+k)){
-//                        works = false;
-//                        break;
-//                    }
-//                    else{
-//                        if (k==gpSize-1 && works){
-//                            ret[0]=i;
-//                            ret[1]=j+k+1;
-//                        }
-//                    }
-//                }
-//            }
-//        }
         return ret;
+    }
+
+    public void remove(int gpNum){
+        for (int i = 0; i < size; i++){
+            for (int j = 0; j < size; j++){
+                if (groupNum[i][j]==gpNum){
+                    groupNum[i][j]=-1;
+                    seatsStatus[i][j]=FREE;
+                }
+            }
+        }
     }
 
     public void printSection(){
         for (int i = 0; i < size; i++){
             for (int j = 0; j < size; j++){
-                System.out.print(seatsStatus[i][j]);
+                System.out.print(groupNum[i][j] + " | ");
             }
             System.out.println();
         }

@@ -75,7 +75,8 @@ public class Main {
         int [] tmp = new int[2];
         tmp = mysection.nextSpot(3);
         System.out.println(tmp[0] + " " + tmp[1]);
-        mysection.place(3);
+        mysection.place(3,0);
+
 
 
         for (int i = 0; i < mysection.size; i++){
@@ -89,7 +90,7 @@ public class Main {
 
         tmp = mysection.nextSpot(1);
         System.out.println(tmp[0] + " " + tmp[1]);
-        mysection.place(1);
+        mysection.place(1,1);
 
 
         for (int i = 0; i < mysection.size; i++){
@@ -103,7 +104,7 @@ public class Main {
 
         tmp = mysection.nextSpot(2);
         System.out.println(tmp[0] + " " + tmp[1]);
-        mysection.place(2);
+        mysection.place(2,2);
 
 
         for (int i = 0; i < mysection.size; i++){
@@ -120,7 +121,28 @@ public class Main {
 
         tmp = mysection.nextSpot(3);
         System.out.println(tmp[0] + " " + tmp[1]);
-        mysection.place(3);
+        mysection.place(4,3);
+
+        System.out.println("NEXT SPOT");
+        System.out.println("Placing 2 person group");
+
+        tmp = mysection.nextSpot(2);
+        System.out.println(tmp[0] + " " + tmp[1]);
+        mysection.place(2,4);
+
+        System.out.println("NEXT SPOT");
+        System.out.println("Placing 4 person group");
+
+        tmp = mysection.nextSpot(4);
+        System.out.println(tmp[0] + " " + tmp[1]);
+        mysection.place(4,5);
+
+        System.out.println("NEXT SPOT");
+        System.out.println("Placing 4 person group");
+
+        tmp = mysection.nextSpot(3);
+        System.out.println(tmp[0] + " " + tmp[1]);
+        mysection.place(4,6);
 
 
         for (int i = 0; i < mysection.size; i++){
